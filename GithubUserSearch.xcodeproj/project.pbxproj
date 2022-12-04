@@ -17,6 +17,8 @@
 		936805A4293B8E64006AD6D3 /* GithubUserSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936805A3293B8E64006AD6D3 /* GithubUserSearchUITests.swift */; };
 		936805A6293B8E64006AD6D3 /* GithubUserSearchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936805A5293B8E64006AD6D3 /* GithubUserSearchUITestsLaunchTests.swift */; };
 		936805B7293C487F006AD6D3 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936805B6293C487F006AD6D3 /* ResultCell.swift */; };
+		936805B9293C5045006AD6D3 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936805B8293C5045006AD6D3 /* SearchResult.swift */; };
+		936805BB293C9A9B006AD6D3 /* SearchUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936805BA293C9A9B006AD6D3 /* SearchUserResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		936805A3293B8E64006AD6D3 /* GithubUserSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserSearchUITests.swift; sourceTree = "<group>"; };
 		936805A5293B8E64006AD6D3 /* GithubUserSearchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserSearchUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		936805B6293C487F006AD6D3 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		936805B8293C5045006AD6D3 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		936805BA293C9A9B006AD6D3 /* SearchUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,8 @@
 		936805B3293C4767006AD6D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				936805B8293C5045006AD6D3 /* SearchResult.swift */,
+				936805BA293C9A9B006AD6D3 /* SearchUserResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +301,8 @@
 			files = (
 				93680587293B8E63006AD6D3 /* SearchViewController.swift in Sources */,
 				93680583293B8E63006AD6D3 /* AppDelegate.swift in Sources */,
+				936805B9293C5045006AD6D3 /* SearchResult.swift in Sources */,
+				936805BB293C9A9B006AD6D3 /* SearchUserResponse.swift in Sources */,
 				936805B7293C487F006AD6D3 /* ResultCell.swift in Sources */,
 				93680585293B8E63006AD6D3 /* SceneDelegate.swift in Sources */,
 			);

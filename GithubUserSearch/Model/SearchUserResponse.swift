@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct SearchUserRespones: Decodable {
+    var items: [SearchResult]
+}

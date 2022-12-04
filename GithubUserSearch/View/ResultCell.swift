@@ -11,4 +11,8 @@ class ResultCell: UICollectionViewCell {
     
     @IBOutlet weak var user: UILabel!
     
+    func configure(_ text: String) {
+        user.text = text
+    }
+    
 }
