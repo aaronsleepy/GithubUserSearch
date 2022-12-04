@@ -21,6 +21,8 @@ class SearchViewController: UIViewController {
     @Published private(set) var users: [SearchResult] = []
     var subscriptions = Set<AnyCancellable>()
     
+    let networkService = NetworkService(configuration: .default)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,34 +99,6 @@ class SearchViewController: UIViewController {
         snapshot.appendItems(items, toSection: section)
         dataSource.apply(snapshot)
     }
-    
-    /**
-    private func bind() {
-        // input: 사용자 입력을 받아서 처리해야할 것
-        // - item 선택 되었을 때 처리
-        didSelect
-            .receive(on: RunLoop.main)
-            .sink { item in
-            let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "FrameworkDetailViewController") as! FrameworkDetailViewController
-         
-                viewController.framework.send(item)
-    
-            self.present(viewController, animated: true)
-        }.store(in: &subscriptions)
-        
-        // output: data, state 변경에 따라서 UI 업데이트할 것
-        // - items(frameworks)가 설정되었을 때 view를 업데이트
-        frameworks
-            .receive(on: RunLoop.main)
-            .sink { list in
-            self.applySectionItems(list)
-        }.store(in: &subscriptions)
-    }
-    
-
-     */
-
 }
 
 extension SearchViewController: UISearchResultsUpdating {
@@ -137,6 +111,29 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("button clicked: \(searchBar.text)")
+        
+        guard let keyword = searchBar.text, !keyword.isEmpty else { return }
+        
+        let resource = Resource<SearchUserResponse>(
+            base: "https://api.github.com/",
+            path: "search/users",
+            params: ["q": keyword],
+            header: ["Content-type": "application/json"])
+
+        networkService.load(resource)
+            .receive(on: RunLoop.main)
+            .print("[Debug]")
+            .sink { completion in
+                print("Completion: \(completion)")
+
+                switch completion {
+                case .failure(let error):
+                    self.users = []
+                case .finished: break
+                }
+            } receiveValue: { response in
+                self.users = response.items
+            }.store(in: &subscriptions)
     }
 }
 

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct SearchUserRespones: Decodable {
+struct SearchUserResponse: Decodable {
     var items: [SearchResult]
 }
