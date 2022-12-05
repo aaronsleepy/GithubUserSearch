@@ -18,13 +18,13 @@ class SearchViewController: UIViewController {
     }
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
-    @Published private(set) var users: [SearchResult] = []
     var subscriptions = Set<AnyCancellable>()
     
-    let networkService = NetworkService(configuration: .default)
+    var viewModel: SearchViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = SearchViewModel(networkService: NetworkService(configuration: .default))
         
         embedSearchControl()
         configureCollectionView()
@@ -85,7 +85,7 @@ class SearchViewController: UIViewController {
     // - 사용자 인터랙션 대응
     //   - searchController 검색 -> 네트워크 요청
     private func bind() {
-        $users
+        viewModel.$users
             .receive(on: RunLoop.main)
             .sink { users in
                 self.applySectionItems(users)
@@ -114,26 +114,7 @@ extension SearchViewController: UISearchBarDelegate {
         
         guard let keyword = searchBar.text, !keyword.isEmpty else { return }
         
-        let resource = Resource<SearchUserResponse>(
-            base: "https://api.github.com/",
-            path: "search/users",
-            params: ["q": keyword],
-            header: ["Content-type": "application/json"])
-
-        networkService.load(resource)
-            .receive(on: RunLoop.main)
-            .print("[Debug]")
-            .sink { completion in
-                print("Completion: \(completion)")
-
-                switch completion {
-                case .failure(let error):
-                    self.users = []
-                case .finished: break
-                }
-            } receiveValue: { response in
-                self.users = response.items
-            }.store(in: &subscriptions)
+        viewModel.search(keyword: keyword)
     }
 }
 
