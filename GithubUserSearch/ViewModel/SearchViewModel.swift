@@ -20,7 +20,6 @@ final class SearchViewModel {
     // Data => Output
     @Published private(set) var users: [SearchResult] = []
     
-    
     // User Action => Input
     func search(keyword: String) {
         let resource = Resource<SearchUserResponse>(
